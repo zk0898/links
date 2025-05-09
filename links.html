@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Process | Complete Your Task</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #6c757d;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .task-instructions {
+            background-color: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .task-instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .task-instructions h3 svg {
+            width: 20px;
+            height: 20px;
+            fill: #3498db;
+        }
+        
+        .task-instructions ol {
+            padding-left: 25px;
+        }
+        
+        .task-instructions li {
+            margin-bottom: 10px;
+            padding-left: 5px;
+        }
+        
+        .task-instructions strong {
+            color: #e74c3c;
+        }
+        
+        .content-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .content-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db, #2ecc71);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .content-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .content-card p {
+            color: #6c757d;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .timer-display {
+            font-size: 0.85rem;
+            color: #e74c3c;
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 20px;
+        }
+        
+        .completed {
+            color: #2ecc71;
+        }
+        
+        .warning {
+            color: #f39c12;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 50px;
+            margin: 30px 0;
+            height: 12px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .continue-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e9ecef;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .btn-continue {
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        
+        .completion-message {
+            color: #2ecc71;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Verification Process</h1>
+            <p class="subtitle">Please complete all verification steps to proceed to the next page</p>
+        </header>
+        
+        <div class="task-instructions">
+            <h3>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                Task Instructions
+            </h3>
+            <ol>
+                <li>Click on each of the 4 verification links below (they will open in new tabs)</li>
+                <li>Stay on each page for the required time: <strong>30 seconds for links 1 & 3</strong>, <strong>40 seconds for links 2 & 4</strong></li>
+                <li><strong>Do not close the tabs</strong> - closing will pause the timer</li>
+                <li>After completing all verifications, the continue button will appear</li>
+                <li>Click continue to proceed to the next page</li>
+            </ol>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="content-links">
+            <div class="content-card">
+                <h3>Verification Link 1</h3>
+                <p>Required time: 30 seconds</p>
+                <a href="https://www.profitableratecpm.com/j97iciezx?key=5907fe586e8032c056c8a7ca81a70d95" class="btn" target="_blank" id="link1">Start Verification 1</a>
+                <div class="timer-display" id="timer1">Not started</div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Verification Link 2</h3>
+                <p>Required time: 40 seconds</p>
+                <a href="https://www.profitableratecpm.com/g2w2y6kq?key=a54f776a7d1f6843c6b798ca8c50c46d" class="btn" target="_blank" id="link2">Start Verification 2</a>
+                <div class="timer-display" id="timer2">Not started</div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Verification Link 3</h3>
+                <p>Required time: 30 seconds</p>
+                <a href="https://sawutser.top/4/8737190" class="btn" target="_blank" id="link3">Start Verification 3</a>
+                <div class="timer-display" id="timer3">Not started</div>
+            </div>
+            
+            <div class="content-card">
+                <h3>Verification Link 4</h3>
+                <p>Required time: 40 seconds</p>
+                <a href="https://ptp.today/120880" class="btn" target="_blank" id="link4">Start Verification 4</a>
+                <div class="timer-display" id="timer4">Not started</div>
+            </div>
+        </div>
+        
+        <div class="continue-section" id="continueSection">
+            <div class="completion-message">✓ All verifications completed successfully!</div>
+            <p>Click below to proceed to the next page:</p>
+            <a href="https://learnandads.blogspot.com/" class="btn btn-continue" target="_blank" id="continueBtn">Continue to Next Page</a>
+        </div>
+    </div>
+    
+    <script>
+        // Track visited links and time spent
+        const visitedLinks = {
+            link1: false,
+            link2: false,
+            link3: false,
+            link4: false
+        };
+        
+        const timers = {
+            timer1: null,
+            timer2: null,
+            timer3: null,
+            timer4: null
+        };
+        
+        const timeSpent = {
+            link1: 0,
+            link2: 0,
+            link3: 0,
+            link4: 0
+        };
+        
+        const requiredTime = {
+            link1: 30,
+            link2: 40,
+            link3: 30,
+            link4: 40
+        };
+        
+        // Track if tabs are closed
+        const tabClosed = {
+            link1: false,
+            link2: false,
+            link3: false,
+            link4: false
+        };
+        
+        // Set up event listeners for each link
+        document.getElementById('link1').addEventListener('click', function() {
+            startTimer('timer1', 'link1');
+        });
+        
+        document.getElementById('link2').addEventListener('click', function() {
+            startTimer('timer2', 'link2');
+        });
+        
+        document.getElementById('link3').addEventListener('click', function() {
+            startTimer('timer3', 'link3');
+        });
+        
+        document.getElementById('link4').addEventListener('click', function() {
+            startTimer('timer4', 'link4');
+        });
+        
+        function startTimer(timerId, linkId) {
+            if (!visitedLinks[linkId]) {
+                visitedLinks[linkId] = true;
+                const timerElement = document.getElementById(timerId);
+                let seconds = 0;
+                tabClosed[linkId] = false;
+                
+                // Open the link in a new tab
+                const newTab = window.open(document.getElementById(linkId).href, '_blank');
+                
+                // Check if tab is closed
+                const checkTabClosed = setInterval(() => {
+                    if (newTab.closed) {
+                        clearInterval(checkTabClosed);
+                        tabClosed[linkId] = true;
+                        timerElement.textContent = 'Tab closed - timer paused';
+                        timerElement.classList.add('warning');
+                        clearInterval(timers[linkId]);
+                    }
+                }, 500);
+                
+                timers[linkId] = setInterval(function() {
+                    if (!tabClosed[linkId]) {
+                        seconds++;
+                        timeSpent[linkId] = seconds;
+                        timerElement.textContent = `Time spent: ${seconds}s / ${requiredTime[linkId]}s`;
+                        
+                        if (seconds >= requiredTime[linkId]) {
+                            clearInterval(timers[linkId]);
+                            clearInterval(checkTabClosed);
+                            timerElement.textContent = 'Verification complete!';
+                            timerElement.classList.remove('warning');
+                            timerElement.classList.add('completed');
+                            checkCompletion();
+                        }
+                    }
+                }, 1000);
+            }
+        }
+        
+        function checkCompletion() {
+            const progressBar = document.getElementById('progressBar');
+            let completed = 0;
+            let totalRequired = 0;
+            
+            // Count completed verifications
+            for (const link in timeSpent) {
+                if (timeSpent[link] >= requiredTime[link]) {
+                    completed++;
+                }
+                totalRequired++;
+            }
+            
+            // Update progress bar
+            const progressPercent = (completed / totalRequired) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+            
+            // If all are completed, show continue button
+            if (completed === totalRequired) {
+                document.getElementById('continueSection').style.display = 'block';
+            }
+        }
+        
+        // Check if user returns to the page (in case they closed tabs)
+        window.addEventListener('focus', function() {
+            checkCompletion();
+        });
+    </script>
+</body>
+</html>
